@@ -1,6 +1,5 @@
 gem "sinatra"
 gem "sinatra-erb"
-gem "open-uri"
 gem "nokogiri"
 
 group :test do

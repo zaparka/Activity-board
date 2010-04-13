@@ -21,6 +21,27 @@ class ActivityTest < Test::Unit::TestCase
     assert last_response.body.include?('Board of my recent activities')
   end
 
+  def test_of_js_library_load
+    get '/js/jquery.js'
+
+    assert last_response.ok?
+    assert last_response.body.include?('jQuery JavaScript Library v1.4.2')
+  end
+
+  def test_of_js_activity_file_load
+    get '/js/activity.js'
+
+    assert last_response.ok?
+    assert last_response.body.include?('JavaScript Document for Activity board')
+  end
+  
+  def test_of_css_activity_file_load
+    get '/css/activity.css'
+
+    assert last_response.ok?
+    assert last_response.body.include?('CSS Document for Activity board')
+  end
+
   def test_of_delicious_feeds_response
     post '/delicious'
     

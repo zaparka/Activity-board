@@ -1,0 +1,16 @@
+/*!
+ * CSS Document for Activity board
+ * Autor: Petr Zaparka petr@zaparka.cz
+ */
+ 
+body{
+  font-family: 'Gill Sans Light', 'Gill Sans', Helvetica, Arial, tahoma, sans-serif;
+  font-size: 12px;
+  color: #565656;
+  padding: 10px;
+}
+
+span.error {
+  font-size: 15px;
+  color: #f00;
+}
