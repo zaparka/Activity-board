@@ -1,4 +1,5 @@
 <% @messages.each do |message| %>
-  <h2><%= message[:published] %></h2>
+  <h3><%= message[:title] %></h3>
   <p><%= message[:text] %></p>
+  <span><%= message[:published] %></span>
 <% end %>

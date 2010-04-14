@@ -8,12 +8,12 @@ def github(user_name, api_token)
     description = item.description[/<blockquote.+<\/blockquote>/]
 
     if description.nil?
-      description = ""
+      description = " "
     else
-      description = description.sub(/<blockquote>/,'').sub(/<\/blockquote>/,'') 
+      description = description.sub(/<blockquote>/, '').sub(/<\/blockquote>/, '')
     end
 
-    commits << {:title => item.title, :description => description, :published => item.published.to_s}
+    commits << {:title => item.title, :description => description, :published => item.published.to_s.sub('UTC','')}
     break if commits.size == 3
   end
 

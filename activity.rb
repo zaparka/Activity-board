@@ -10,11 +10,8 @@ require 'parsers/delicious'
 require 'parsers/twitter'
 require 'parsers/github'
 
-
 configure do
   @@settings = YAML::load(File.read('settings.yml'))
-  enable :sessions
-  set :sessions, true
 end
 
 get '/' do

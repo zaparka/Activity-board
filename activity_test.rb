@@ -45,7 +45,8 @@ class ActivityTest < Test::Unit::TestCase
     post '/delicious'
     
     assert last_response.ok?
-    assert last_response.body.include?('<h2>')
+    assert last_response.body.include?('<h3>')
+    assert last_response.body.include?('http://')
     assert last_response.body.include?('<span>')
   end
 
@@ -62,6 +63,7 @@ class ActivityTest < Test::Unit::TestCase
     messages = twitter_messages @@settings['twitter'], 4
 
     assert_equal 3, messages.size
+    assert messages.first[:title].length > 0
     assert messages.first[:text].length > 0
     assert messages.first[:published].length > 0
   end
@@ -70,8 +72,9 @@ class ActivityTest < Test::Unit::TestCase
     post '/twitter'
     
     assert last_response.ok?
-    assert last_response.body.include?('<h2>')
+    assert last_response.body.include?('<h3>')
     assert last_response.body.include?('<p>')
+    assert last_response.body.include?('<span>')
   end
 
   def test_of_githab_parser
@@ -87,7 +90,7 @@ class ActivityTest < Test::Unit::TestCase
     post '/github'
     
     assert last_response.ok?
-    assert last_response.body.include?('<h2>')
+    assert last_response.body.include?('<h3>')
     assert last_response.body.include?('<p>')
     assert last_response.body.include?('<span>')
   end

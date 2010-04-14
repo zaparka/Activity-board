@@ -1,5 +1,5 @@
 <% @feeds.each do |feed| %>
-  <h2><%= feed[:title] %></h2>
+  <h3><%= feed[:title] %></h3>
   <a href="<%= feed[:url] %>" title="<%= feed[:title] %>" ><%= feed[:title] %></a>
-  <span><%= feed[:pubdate] %></span>
+  <span><%= feed[:published] %></span>
 <% end %>
