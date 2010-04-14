@@ -51,7 +51,7 @@ class ActivityTest < Test::Unit::TestCase
   end
 
   def test_of_delicious_feeds_parser
-    @feeds = get_delicious_feeds 'http://feeds.delicious.com/v2/rss/netro?count=3'
+    @feeds = get_delicious_feeds @@settings['delicious']
     
     assert_equal 3, @feeds.size
     assert @feeds.first[:title].length > 0

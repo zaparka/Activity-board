@@ -2,13 +2,18 @@ require 'rubygems'
 require 'sinatra'
 require 'erb'
 require 'parsers/delicious'
+require 'yaml'
+
+configure do
+  @@settings = YAML::load(File.read('settings.yml'))
+end
 
 get '/' do
   erb :activity
 end
 
 post '/delicious' do
-  @feeds = get_delicious_feeds 'http://feeds.delicious.com/v2/rss/netro?count=3'
+  @feeds = get_delicious_feeds @@settings['delicious']
   erb :delicious
 end
 
