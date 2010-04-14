@@ -27,6 +27,15 @@ Activity.prototype = {
     });
   },
 
+  loadGithub: function() {
+    this.ajax_call('post', 'github',{},function(response){
+      if(response.length > 0)
+        $('#github').html(response);
+      else
+        $('#github').html('<span class="error">Server don\'t response !</span>')
+    });
+  },
+
   ajax_call: function( type, url, data, on_success_method ) {
     $.ajax({
       type: type,
@@ -46,4 +55,5 @@ $(document).ready(function () {
   
   activity.loadDelicious();
   activity.loadTwitter();
+  activity.loadGithub();
 });

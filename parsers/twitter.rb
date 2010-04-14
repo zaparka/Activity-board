@@ -6,7 +6,7 @@ def twitter_messages(user_name, message_count)
   messages = []
   doc.search('status').each do |item|
     text = item.search('text').text
-    messages << {:text => text, :posted => item.created_at.text}
+    messages << {:text => text, :published => item.created_at.text}
   end
   
   messages

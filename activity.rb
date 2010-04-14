@@ -4,11 +4,17 @@ require 'erb'
 require 'yaml'
 require 'nokogiri'
 require 'open-uri'
+require 'feed_tools'
+
 require 'parsers/delicious'
 require 'parsers/twitter'
+require 'parsers/github'
+
 
 configure do
   @@settings = YAML::load(File.read('settings.yml'))
+  enable :sessions
+  set :sessions, true
 end
 
 get '/' do
@@ -23,6 +29,11 @@ end
 post '/twitter' do
   @messages = twitter_messages @@settings['twitter'], @@settings['twitter_messagges_count']
   erb :twitter
+end
+
+post '/github' do 
+  @commits = github @@settings['github_user_name'], @@settings['github_token']
+  erb :github
 end
 
 get '/js/jquery.js' do

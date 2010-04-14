@@ -3,7 +3,6 @@ require 'test/unit'
 require 'rack/test'
 
 set :environment, :test
-
 class ActivityTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
@@ -56,7 +55,7 @@ class ActivityTest < Test::Unit::TestCase
     assert_equal 3, feeds.size
     assert feeds.first[:title].length > 0
     assert feeds.first[:url].include?('http://')
-    assert feeds.first[:pubdate].length > 0
+    assert feeds.first[:published].length > 0
   end
 
   def test_of_twitter_messages_parser
@@ -64,7 +63,7 @@ class ActivityTest < Test::Unit::TestCase
 
     assert_equal 3, messages.size
     assert messages.first[:text].length > 0
-    assert messages.first[:posted].length > 0
+    assert messages.first[:published].length > 0
   end
   
   def test_of_delicious_feeds_response
@@ -74,5 +73,23 @@ class ActivityTest < Test::Unit::TestCase
     assert last_response.body.include?('<h2>')
     assert last_response.body.include?('<p>')
   end
-  
+
+  def test_of_githab_parser
+    commits = github @@settings['github_user_name'], @@settings['github_token']
+    
+    assert_equal 3, commits.size
+    assert commits.first[:title].length > 0
+    assert commits.first[:description].length > 0
+    assert commits.first[:published].length > 0
+  end
+
+  def test_of_github_feeds_response
+    post '/github'
+    
+    assert last_response.ok?
+    assert last_response.body.include?('<h2>')
+    assert last_response.body.include?('<p>')
+    assert last_response.body.include?('<span>')
+  end
+
 end

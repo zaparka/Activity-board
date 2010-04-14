@@ -1,6 +1,7 @@
 gem "sinatra"
 gem "sinatra-erb"
 gem "nokogiri"
+gem "feedtools"
 
 group :test do
   gem "pickle"
