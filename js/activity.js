@@ -17,6 +17,15 @@ Activity.prototype = {
         $('#delicious').html('<span class="error">Server don\'t response !</span>')
     });
   },
+  
+  loadTwitter: function() {
+    this.ajax_call('post', 'twitter',{},function(response){
+      if(response.length > 0)
+        $('#twitter').html(response);
+      else
+        $('#twitter').html('<span class="error">Server don\'t response !</span>')
+    });
+  },
 
   ajax_call: function( type, url, data, on_success_method ) {
     $.ajax({
@@ -36,4 +45,5 @@ $(document).ready(function () {
   activity = new Activity();
   
   activity.loadDelicious();
+  activity.loadTwitter();
 });

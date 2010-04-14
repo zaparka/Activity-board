@@ -1,8 +1,11 @@
 require 'rubygems'
 require 'sinatra'
 require 'erb'
-require 'parsers/delicious'
 require 'yaml'
+require 'nokogiri'
+require 'open-uri'
+require 'parsers/delicious'
+require 'parsers/twitter'
 
 configure do
   @@settings = YAML::load(File.read('settings.yml'))
@@ -13,8 +16,13 @@ get '/' do
 end
 
 post '/delicious' do
-  @feeds = get_delicious_feeds @@settings['delicious']
+  @feeds = delicious_feeds @@settings['delicious']
   erb :delicious
+end
+
+post '/twitter' do
+  @messages = twitter_messages @@settings['twitter'], @@settings['twitter_messagges_count']
+  erb :twitter
 end
 
 get '/js/jquery.js' do

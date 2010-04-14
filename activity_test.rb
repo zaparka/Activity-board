@@ -51,12 +51,28 @@ class ActivityTest < Test::Unit::TestCase
   end
 
   def test_of_delicious_feeds_parser
-    @feeds = get_delicious_feeds @@settings['delicious']
+    feeds = delicious_feeds @@settings['delicious']
     
-    assert_equal 3, @feeds.size
-    assert @feeds.first[:title].length > 0
-    assert @feeds.first[:url].include?('http://')
-    assert @feeds.first[:pubdate].length > 0
+    assert_equal 3, feeds.size
+    assert feeds.first[:title].length > 0
+    assert feeds.first[:url].include?('http://')
+    assert feeds.first[:pubdate].length > 0
   end
 
+  def test_of_twitter_messages_parser
+    messages = twitter_messages @@settings['twitter'], 4
+
+    assert_equal 3, messages.size
+    assert messages.first[:text].length > 0
+    assert messages.first[:posted].length > 0
+  end
+  
+  def test_of_delicious_feeds_response
+    post '/twitter'
+    
+    assert last_response.ok?
+    assert last_response.body.include?('<h2>')
+    assert last_response.body.include?('<p>')
+  end
+  
 end
