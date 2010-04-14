@@ -9,51 +9,33 @@ function Activity() {
 
 Activity.prototype = {
 
-  loadDelicious: function() {
-    this.ajax_call('post', 'delicious',{},function(response){
+  loadService: function(service_name) {
+    this.ajax_call('post', service_name, {}, function(response){
       if(response.length > 0)
-        $('#delicious').html(response);
+        $('#'+service_name).html(response);
       else
-        $('#delicious').html('<span class="error">Server don\'t response !</span>')
-    });
-  },
-  
-  loadTwitter: function() {
-    this.ajax_call('post', 'twitter',{},function(response){
-      if(response.length > 0)
-        $('#twitter').html(response);
-      else
-        $('#twitter').html('<span class="error">Server don\'t response !</span>')
+        $('#'+service_name).html('<span class="error">Server did\'t respond!</span>')
+    }, function(){
+        $('#'+service_name).html('<span class="error">Server did\'t respond!</span>')
     });
   },
 
-  loadGithub: function() {
-    this.ajax_call('post', 'github',{},function(response){
-      if(response.length > 0)
-        $('#github').html(response);
-      else
-        $('#github').html('<span class="error">Server don\'t response !</span>')
-    });
-  },
-
-  ajax_call: function( type, url, data, on_success_method ) {
+  ajax_call: function( type, url, data, on_success, on_error) {
     $.ajax({
       type: type,
       url: url,
       dataType: 'html',
       data: data,
-      success: on_success_method,
-      complete: function(){
-        $( 'img.loading' ).hide();
-      }
+      success: on_success,
+      error: on_error
     });
   }
 }
 
 $(document).ready(function () {
   activity = new Activity();
-  
-  activity.loadDelicious();
-  activity.loadTwitter();
-  activity.loadGithub();
+
+  activity.loadService('delicious');
+  activity.loadService('twitter');
+  activity.loadService('github');
 });
