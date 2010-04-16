@@ -47,3 +47,8 @@ get '/css/activity.css' do
   headers 'Content-Type' => 'text/css; charset=utf-8'
   File.read(File.join(File.dirname(__FILE__), 'css', 'activity.css' ) )
 end
+
+get '/img/loader.gif' do
+  headers 'Content-Type' => 'image/jpeg;'
+  File.read(File.join(File.dirname(__FILE__), 'img', 'loader.gif' ) )
+end

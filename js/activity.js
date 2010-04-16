@@ -10,7 +10,8 @@ function Activity() {
 Activity.prototype = {
 
   loadService: function(service_name) {
-    this.ajax_call('post', service_name, {}, function(response){
+    $("#"+service_name).html('<img src="img/loader.gif" alt="Loading ..." class="loader" />');
+    this.ajax_call(service_name, {}, function(response){
       if(response.length > 0)
         $('#'+service_name).html(response);
       else
@@ -20,10 +21,10 @@ Activity.prototype = {
     });
   },
 
-  ajax_call: function( type, url, data, on_success, on_error) {
+  ajax_call: function(service, data, on_success, on_error) {
     $.ajax({
-      type: type,
-      url: url,
+      type: 'post',
+      url: service,
       dataType: 'html',
       data: data,
       success: on_success,
