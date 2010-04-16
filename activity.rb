@@ -21,16 +21,16 @@ get '/' do
 end
 
 post '/delicious' do
-  if @@cache.expired? 'delicious'
+  if @@cache.expired? 'delicious' or params['reload']
     @feeds = delicious_feeds @@settings['delicious']
     @@cache.write('delicious', erb(:delicious) )
   end
-  
-  @@cache.read('delicious')
+
+  @@cache.read('delicious') + "<span>#{params['reload']}</span>"
 end
 
 post '/twitter' do
-  if @@cache.expired? 'twitter'
+  if @@cache.expired? 'twitter' or params['reload']
     @messages = twitter_messages @@settings['twitter'], @@settings['twitter_messagges_count']
     @@cache.write('twitter', erb(:twitter) )
   end
@@ -39,7 +39,7 @@ post '/twitter' do
 end
 
 post '/github' do
-  if @@cache.expired? 'github'
+  if @@cache.expired? 'github' or params['reload']
     @commits = github @@settings['github_user_name'], @@settings['github_token']
     @@cache.write('github', erb(:github) )
   end

@@ -38,7 +38,13 @@ img.loader {
   color: #aaa;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 20px;
-  width: 100px;
+}
+
+#content h2 span{
+ float: right;
+ font-size: 13px;
+ cursor: pointer;
+ padding-top: 7px;
 }
 
 #content div h3 {

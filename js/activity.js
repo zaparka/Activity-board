@@ -9,9 +9,14 @@ function Activity() {
 
 Activity.prototype = {
 
-  loadService: function(service_name) {
+  loadService: function(service_name, reload) {
     $("#"+service_name).html('<img src="img/loader.gif" alt="Loading ..." class="loader" />');
-    this.ajax_call(service_name, {}, function(response){
+    var params = {}
+
+    if(reload)
+      params = 'reload=1'
+
+    this.ajax_call(service_name, params, function(response){
       if(response.length > 0)
         $('#'+service_name).html(response);
       else
@@ -39,4 +44,9 @@ $(document).ready(function () {
   activity.loadService('delicious');
   activity.loadService('twitter');
   activity.loadService('github');
+
+  $('h2 span').click(function(event){
+    var service_name = $(event.target).parent().next().attr('id');
+    activity.loadService(service_name, 1);
+  });
 });
