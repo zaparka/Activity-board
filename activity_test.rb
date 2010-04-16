@@ -94,5 +94,26 @@ class ActivityTest < Test::Unit::TestCase
     assert last_response.body.include?('<p>')
     assert last_response.body.include?('<span>')
   end
+  
+  def test_of_expired_method_at_cash
+    cash = Cache.new
+    
+    assert_equal true, cash.expired?('ticket')
+  end
+
+  def test_of_write_method_at_cash
+    cash = Cache.new
+    cash.write('ticket','Tickets for Movie')
+    
+    assert_equal false, cash.expired?('ticket')
+  end
+
+  def test_of_write_and_read_method_at_cash
+    cash = Cache.new
+    cash.write('ticket','Tickets for Movie')
+    
+    assert_equal false, cash.expired?('ticket')
+    assert_equal 'Tickets for Movie', cash.read('ticket')
+  end
 
 end

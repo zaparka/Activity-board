@@ -9,9 +9,11 @@ require 'feed_tools'
 require 'parsers/delicious'
 require 'parsers/twitter'
 require 'parsers/github'
+require 'cache'
 
 configure do
   @@settings = YAML::load(File.read('settings.yml'))
+  @@cache = Cache.new
 end
 
 get '/' do
@@ -19,18 +21,30 @@ get '/' do
 end
 
 post '/delicious' do
-  @feeds = delicious_feeds @@settings['delicious']
-  erb :delicious
+  if @@cache.expired? 'delicious'
+    @feeds = delicious_feeds @@settings['delicious']
+    @@cache.write('delicious', erb(:delicious) )
+  end
+  
+  @@cache.read('delicious')
 end
 
 post '/twitter' do
-  @messages = twitter_messages @@settings['twitter'], @@settings['twitter_messagges_count']
-  erb :twitter
+  if @@cache.expired? 'twitter'
+    @messages = twitter_messages @@settings['twitter'], @@settings['twitter_messagges_count']
+    @@cache.write('twitter', erb(:twitter) )
+  end
+
+  @@cache.read('twitter')
 end
 
-post '/github' do 
-  @commits = github @@settings['github_user_name'], @@settings['github_token']
-  erb :github
+post '/github' do
+  if @@cache.expired? 'github'
+    @commits = github @@settings['github_user_name'], @@settings['github_token']
+    @@cache.write('github', erb(:github) )
+  end
+
+  @@cache.read('github')
 end
 
 get '/js/jquery.js' do
