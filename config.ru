@@ -1,2 +1,2 @@
-require 'activity.ru'
+require 'activity.rb'
 run Sinatra::Application
