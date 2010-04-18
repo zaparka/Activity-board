@@ -79,3 +79,14 @@ img.loader {
   font-size: 20px;
   color: #B30000;
 }
+
+#footer {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 1024px;
+  text-align:center;
+}
+
+#footer a {
+  color: #B30000;
+}
