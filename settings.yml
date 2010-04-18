@@ -1,5 +1,5 @@
 delicious: 'http://feeds.delicious.com/v2/rss/netro?count=3'
 twitter: 'zaparka'
 twitter_messagges_count: '4' #return 3 instead of 4, more info at Twitter API
-github_token: 'API KEY'
+github_token: 'API KEY '
 github_user_name: "zaparka"
